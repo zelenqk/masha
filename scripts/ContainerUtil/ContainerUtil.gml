@@ -22,10 +22,9 @@ function ContainerUtil(p) constructor{
 	mouse = -1;
 	
 	target = pointer_null;
-	efficient = {x:0, y: 0, width: 0, height: 0};
+	efficient = {x:0, y: 0, width: 0, height: 0, background: {texture: -1, tint: c_white, alpha: 1, uvs: [0, 0, 1, 1]}};
 	
 	pipeline = new Pipeline();
-	
 	main = pointer_null;
 	
 	//render cache
@@ -34,8 +33,19 @@ function ContainerUtil(p) constructor{
 	children = {
 		list: [],
 		number: 0,
-		vertex: {},
+		batch: [],
+		
+		submit: function(){
+			var i = 0;
+			repeat (array_length(batch)){
+				var group = batch[i++];
+				group.vertex.submit(group.texture);
+			}
+		}
 	}
+	
+	group = pointer_null;
+	offset = parent.children.number;
 	
 	//util methods
 	hover_check = function(){
@@ -83,6 +93,31 @@ function ContainerUtil(p) constructor{
 		}
 	}
 	
+	static add = function(styles) {
+		if (!is_array(styles)) {
+			var container = new Container(styles, self);
+			
+			array_push(children.list, container);
+			children.number++;
+			
+			container.render();
+			return container;
+		}
+		
+		var res = [];
+		
+		for(var i = 0; i < array_length(styles); i++){
+			var style = styles[i];
+			var container = new Container(style, self);
+			
+			array_push(children.list, container);
+			children.number++;
+			
+			array_push(res, container);
+		}
+		return res;
+	}
+	
 	//render pipeline
 	static parse_calculations = function(class, fallback = undefined){
 		var hash =  variable_get_hash(class);
@@ -95,7 +130,7 @@ function ContainerUtil(p) constructor{
 		var image = get_default(class, "image", 0);
 		
 		var color = get_default(class, "tint", undefined);
-		var alpha = get_default(class, "alpha", (background == -1 ? undefined : 1));
+		var alpha = get_default(class, "alpha", undefined);
 
 		var texture = get_default(class, "texture", undefined);
 		var uvs = get_default(class, "uv", undefined);
@@ -103,8 +138,14 @@ function ContainerUtil(p) constructor{
 		if (asset_get_type(background) == asset_sprite){
 			texture = sprite_get_texture(background, image);	
 			uvs = sprite_get_uvs(background, image);
+			alpha = (alpha == undefined ? 1 : alpha);
 		}else {
 			if (is_handle(background)) show_debug_message("[MASHA_RS][ERROR] cannot proccess handle " + string(background));
+			else if (background != undefined){
+				texture = -1;
+				color = background;
+				alpha = (alpha == undefined ? 1 : alpha);
+			}
 		}
 		
 		cache = {	
@@ -120,10 +161,7 @@ function ContainerUtil(p) constructor{
 			},
 			
 			border : {
-				left: get_calculation(get_overwrite_struct(class, "border", "left", "inline", get_overwrite(class, "borderLeft", "borderInline", "border", fallback))),
-				right: get_calculation(get_overwrite_struct(class, "border", "right", "inline", get_overwrite(class, "borderRight", "borderInline", "border", fallback))),
-				top: get_calculation(get_overwrite_struct(class, "border", "top", "block", get_overwrite(class, "borderTop", "borderBlock", "border", fallback))),
-				bottom: get_calculation(get_overwrite_struct(class, "border", "bottom", "block", get_overwrite(class, "borderBottom", "borderBlock", "border", fallback))),
+				left: get_calculation(get_overwrite_struct(class, "border", "left", "inline", get_overwrite(class, "borderWidth", "border", fallback))),
 			},
 			
 			margin : {
@@ -134,7 +172,9 @@ function ContainerUtil(p) constructor{
 			},
 			
 			//layout
+			visible: get_default(class, "visible", true),
 			direction: get_default(class, "direction", fallback),
+			depth: get_default(class, "depth", parent.children.number),
 			
 			//visuals
 			background: {
@@ -143,6 +183,9 @@ function ContainerUtil(p) constructor{
 				alpha: alpha,
 				uvs: uvs,
 			},
+			
+			//class stuff
+			weight: get_default(class, "weight", 0),
 		}
 		
 		CONTAINER_CACHE[$ hash] = cache;
@@ -154,21 +197,25 @@ function ContainerUtil(p) constructor{
 		main.hover = get_default(properties, "hover", -1);
 		main.hold = get_default(properties, "hold", -1);
 		
+		efficient.width = display_get_gui_width();
+		efficient.height = display_get_gui_height();
+				
+		efficient.wrap = resolve_variable("wrap", false, main, class.list);
+		efficient.direction = resolve_variable("direction", column, main, class.list);
+		
+		layout.reset();
+		parent.layout.position(self);
+		
 		efficient.width = calculate_value(resolve_variable("width", 0, main, class.list), parent.efficient.width);
 		efficient.height = calculate_value(resolve_variable("height", 0, main, class.list), parent.efficient.height);
 		
-		
-		parent.layout.position(self);
 		if (root != self) parent.layout.increment(efficient.width, efficient.height)
 		
-		efficient.background = {
-			texture: resolve_struct("background", "texture", -1, main, class.list),	
-			tint: resolve_struct("background", "tint", c_white, main, class.list),	
-			alpha: resolve_struct("background", "alpha", 1, main, class.list),	
-			uvs: resolve_struct("background", "uvs", [0, 0, 1, 1], main, class.list),	
-		}
+		efficient.background.texture = resolve_struct("background", "texture", -1, main, class.list);
+		efficient.background.tint = resolve_struct("background", "tint", c_white, main, class.list);
+		efficient.background.alpha = resolve_struct("background", "alpha", 0, main, class.list);
+		efficient.background.uvs = resolve_struct("background", "uvs", [0, 0, 1, 1], main, class.list);
 		
-		layout.reset();
 		array_foreach(children.list, function(child){
 			child.render();
 		})
@@ -176,26 +223,47 @@ function ContainerUtil(p) constructor{
 	
 	static build = function(){
 		vertex.purge();
+		
+		vertex.start();
 		vertex.quad(efficient.x, efficient.y, efficient.width, efficient.height, efficient.background.tint, efficient.background.alpha, efficient.background.uvs);
+		vertex.finish();
+		
 		vertex.texture = efficient.background.texture;
 	}
 	
 	static populate = function(){
 		pipeline = new Pipeline();
+		
 		if (main.hover != -1 or main.hold != -1) pipeline.push(hover_check);
 		if (main.hold != -1) pipeline.push(hold_check);
 		
-		pipeline.push(vertex.submit);
+		if (root == self){
+			pipeline.push(vertex.submit);
+			pipeline.push(children.submit);
+		}else{
+			var index = array_find_index(parent.children.batch, function(group){
+				return (group.texture == efficient.background.texture);
+			});
+			
+			var group = {texture: efficient.background.texture, vertex: new Vertex(), free: []};
+			
+			if (index == -1) array_push(parent.children.batch, group);
+			else group = parent.children.batch[index];
+			
+			if (group != self.group){
+				self.group = group;
+				vertex_update_buffer_from_vertex(group.vertex.buffer, offset * 6, vertex.buffer);
+			} 
+		}
 	}
 	
 	static render = function(){
 		prepare();
-		build();
-		
 		populate();
+		build();
 	}
 	
-	static draw = function(){
+	draw = function(){
 		pipeline.step();
 	}
 }
@@ -211,12 +279,9 @@ function Pipeline() constructor{
 	}
 	
 	static step = function(){
-		var i = 0;
-		
-		repeat(length){
-			var work = stack[i++];
+		array_foreach(stack, function(work){
 			work();
-		}
+		});
 	}
 }
 
@@ -226,16 +291,53 @@ function Layout(p) constructor {
 	x = 0;
 	y = 0;
 	
+	line = {
+		x: 0,
+		y: 0,
+		width: 0,
+		height: 0,
+	}
+	
+	direction = column;
+	
 	static reset = function() {
-		x = 0;
-		y = 0;
+		line.x = 0;
+		line.y = 0;
+		line.width = 0;
+		line.height = 0;
+		
+		direction = parent.efficient.direction;
 	}
 	
 	static position = function(container) {
-			
+		if (direction == row ) container.efficient.x = x + line.width;
+		else container.efficient.y = y + line.height;
 	}
 	
 	static increment = function(width, height) {
+		var ewidth = parent.efficient.width// - parent.efficient.padding.left - parent.efficient.padding.right;
+		var eheight = parent.efficient.height// - parent.efficient.padding.top - parent.efficient.padding.bottom;
 		
+		if (direction == row){
+			if (parent.efficient.wrap and x + width > ewidth){
+				y += line.height;
+				
+				line.width = 0;
+				line.height = 0;
+			}
+			
+			line.width += width;
+			line.height = max(line.height, height);
+		}else {
+			if (parent.efficient.wrap and y + height > eheight){
+				x += line.width;
+				
+				line.width = 0;
+				line.height = 0;
+			}
+			
+			line.height += height;
+			line.width = max(line.width, width);
+		}
 	}
 }

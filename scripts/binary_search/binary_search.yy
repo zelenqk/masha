@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"binary_search",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"binary_search",
+  "parent":{
+    "name":"Algorithms",
+    "path":"folders/Masha/Util/Algorithms.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

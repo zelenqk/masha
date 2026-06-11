@@ -23,6 +23,11 @@ function ClassSystem(p) constructor{
 		
 		if (index == -1 and state){
 			array_push(list, cache);
+			
+			array_sort(list, function(a, b){
+				return a.weight - b.weight;
+			});
+			
 			parent.render();
 		}
 		

@@ -1,3 +1,2 @@
 test.draw();
-
-draw_text(0, 0, fps);
+test.children.submit();

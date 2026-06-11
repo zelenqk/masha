@@ -12,3 +12,27 @@ test = new Container({
 		tint: c_red,
 	}
 })
+
+wtf = test.add({
+	width: "100%",
+	height: 32,
+	
+	background: c_blue,
+});
+
+wtf = test.add({
+	width: "100%",
+	height: 32,
+	
+	background: c_blue,
+});
+
+wtf = test.add({
+	width: "100%",
+	height: 32,
+	
+	background: c_blue,
+});
+
+text = new TextSystem();
+text.render();

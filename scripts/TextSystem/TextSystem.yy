@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"TextSystem",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"TextSystem",
+  "parent":{
+    "name":"Classes",
+    "path":"folders/Masha/Util/Classes.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
