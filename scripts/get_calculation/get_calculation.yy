@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"get_calculation",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"get_calculation",
+  "parent":{
+    "name":"Util",
+    "path":"folders/Masha/Util.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

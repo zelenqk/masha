@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"Vertex",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"Vertex",
+  "parent":{
+    "name":"Classes",
+    "path":"folders/Masha/Util/Classes.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
