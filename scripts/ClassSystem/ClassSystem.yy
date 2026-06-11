@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"ClassSystem",
   "parent":{
-    "name":"Classes",
-    "path":"folders/Masha/Util/Classes.yy",
+    "name":"Systems",
+    "path":"folders/Masha/Systems.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

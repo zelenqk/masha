@@ -1,64 +1,57 @@
-globalvar BASE_VERTEX_FORMAT, BASE_VERTEX_FORMAT_INFO;
+globalvar BASE_FORMAT;
 
-vertex_format_begin()
-
-vertex_format_add_position();
+vertex_format_begin();
+vertex_format_add_position_3d();
 vertex_format_add_color();
 vertex_format_add_texcoord();
-
-BASE_VERTEX_FORMAT = vertex_format_end();
-BASE_VERTEX_FORMAT_INFO = vertex_format_get_info(BASE_VERTEX_FORMAT);
+BASE_FORMAT = vertex_format_end();
 
 function Vertex() constructor{
-	buffer = vertex_create_buffer();
 	texture = -1;
-	vertex_begin(buffer, BASE_VERTEX_FORMAT);
-	vertex_end(buffer);
+	primitive = pr_trianglelist;
+	buffer = vertex_create_buffer();
 	
-	//methods
+	submit = function(){
+		vertex_submit(buffer, primitive, texture)	
+	}
+	
 	static purge = function(){
 		vertex_delete_buffer(buffer);
 		buffer = vertex_create_buffer();
-		vertex_begin(buffer, BASE_VERTEX_FORMAT);
-		vertex_end(buffer);
 	}
 	
-	submit = function(tex = texture){
-		vertex_submit(buffer, pr_trianglelist, tex);
-	}
-		
 	static start = function(){
-		vertex_begin(buffer, BASE_VERTEX_FORMAT);	
+		vertex_begin(buffer, BASE_FORMAT);
 	}
 	
 	static finish = function(){
-		vertex_end(buffer);	
+		vertex_end(buffer);
 	}
+	
+	//primitives
+	static quad = function(box){
+		vertex_position_3d(buffer, box.x, box.y, box.depth);
+		vertex_color(buffer, box.background.tint, box.background.alpha);
+		vertex_texcoord(buffer, box.background.uv[0], box.background.uv[1]);
 		
-	//prefabs
-	static quad = function(tx, ty, width, height, color = c_white, alpha = 1, uvs = [0, 0, 1, 1]){
-		vertex_position(buffer, tx, ty); // top left
-		vertex_color(buffer, color, alpha);
-		vertex_texcoord(buffer, uvs[0], uvs[1]);
+		vertex_position_3d(buffer, box.x + box.width, box.y, box.depth);
+		vertex_color(buffer, box.background.tint, box.background.alpha);
+		vertex_texcoord(buffer, box.background.uv[2], box.background.uv[1]);
+
+		vertex_position_3d(buffer, box.x + box.width, box.y + box.height, box.depth);
+		vertex_color(buffer, box.background.tint, box.background.alpha);
+		vertex_texcoord(buffer, box.background.uv[2], box.background.uv[3]);
 		
-		vertex_position(buffer, tx + width, ty); // top right
-		vertex_color(buffer, color, alpha);
-		vertex_texcoord(buffer, uvs[2], uvs[1]);
+		vertex_position_3d(buffer, box.x, box.y, box.depth);
+		vertex_color(buffer, box.background.tint, box.background.alpha);
+		vertex_texcoord(buffer, box.background.uv[0], box.background.uv[1]);
 		
-		vertex_position(buffer, tx + width, ty + height); // bottom right
-		vertex_color(buffer, color, alpha);
-		vertex_texcoord(buffer, uvs[2], uvs[3]);
+		vertex_position_3d(buffer, box.x + box.width, box.y + box.height, box.depth);
+		vertex_color(buffer, box.background.tint, box.background.alpha);
+		vertex_texcoord(buffer, box.background.uv[2], box.background.uv[3]);
 		
-		vertex_position(buffer, tx, ty); // top left
-		vertex_color(buffer, color, alpha);
-		vertex_texcoord(buffer, uvs[0], uvs[1]);
-		
-		vertex_position(buffer, tx + width, ty + height); // bottom right
-		vertex_color(buffer, color, alpha);
-		vertex_texcoord(buffer, uvs[2], uvs[3]);
-		
-		vertex_position(buffer, tx, ty + height); // bottom left
-		vertex_color(buffer, color, alpha);
-		vertex_texcoord(buffer, uvs[0], uvs[3]);
+		vertex_position_3d(buffer, box.x, box.y + box.height, box.depth);
+		vertex_color(buffer, box.background.tint, box.background.alpha);
+		vertex_texcoord(buffer, box.background.uv[0], box.background.uv[3]);
 	}
 }

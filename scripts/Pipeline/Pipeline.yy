@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"calculate_value",
+  "%Name":"Pipeline",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"calculate_value",
+  "name":"Pipeline",
   "parent":{
-    "name":"Util",
-    "path":"folders/Masha/Util.yy",
+    "name":"Systems",
+    "path":"folders/Masha/Systems.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

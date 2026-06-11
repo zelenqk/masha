@@ -1,15 +1,17 @@
-function get_default(properties, name, fallback = undefined){
-	var value = properties[$ name];
+function get_default(class, name, fallback = undefined){
+	var value = class[$ name];
+	
 	if (value == undefined) return fallback;
 	return value;
 }
 
-function get_overwrite(){
-	var properties = argument[0];
+function get_overwrite(class){
+	var i = 1;
 	var fallback = argument[argument_count - 1];
 	
-	for(var i = 1; i < argument_count - 1; i++){
-		var value = properties[$ argument[i]];
+	repeat (argument_count - i){
+		var name = argument[i++];
+		var value = class[$ name];
 		
 		if (value != undefined) return value;
 	}
@@ -17,16 +19,15 @@ function get_overwrite(){
 	return fallback;
 }
 
-function get_overwrite_struct(){
-	var properties = argument[0];
-	var struct = argument[1];
-	
+function get_overwrite_struct(class, struct){
+	var i = 2;
 	var fallback = argument[argument_count - 1];
 	
-	if (!is_struct(properties[$ struct])) return fallback;
+	if (class[$ struct] == undefined) return fallback;
 	
-	for(var i = 2; i < argument_count - 1; i++){
-		var value = properties[$ struct][$ argument[i]];
+	repeat (argument_count - i - 1){
+		var name = argument[i++];
+		var value = class[$ struct][$ name];
 		
 		if (value != undefined) return value;
 	}
@@ -34,28 +35,32 @@ function get_overwrite_struct(){
 	return fallback;
 }
 
-function resolve_variable(name, fallback, main = {}, classes = []){
-	fallback = (main[$ name] == undefined) ? fallback : main[$ name];
+function resolve_variable(name, fallback){
+	var value = main[$ name];
+	fallback = (value == undefined) ? fallback : value;
 	
-	for(var i = array_length(classes) - 1; i >= 0; i--){
-		var class = classes[i];
+	for(var i = array_length(self.class.list) - 1; i >= 0 ; i--){
+		var class = self.class.list[i];
+		var value = class[$ name];
 		
-		var v = class[$ name];
-		if (v != undefined) return v;
+		if (value != undefined) return value;
 	}
 	
 	return fallback;
 }
 
-function resolve_struct(struct, name, fallback, main = {}, classes = []){
-	fallback = (main[$ struct] == undefined or main[$ struct][$ name] == undefined) ? fallback : main[$ struct][$ name];
+function resolve_variable_struct(struct, name, fallback){
+	var value = main[$ struct];
+	if (value == undefined) return fallback;
 	
-	for(var i = array_length(classes) - 1; i >= 0; i--){
-		var class = classes[i];
-		
-		var v = class[$ struct][$ name];
-		if (v != undefined) return v;
+	value = main[$ struct][$ name];
+	fallback = (value == undefined) ? fallback : value;
+	
+	for(var i = array_length(self.class.list) - 1; i >= 0 ; i--){
+		var class = self.class.list[i];
+		value = class[$ struct][$ name];
+		if (fallback != undefined) return value;
 	}
 	
-	return fallback;	
+	return fallback;
 }

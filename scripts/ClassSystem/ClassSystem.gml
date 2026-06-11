@@ -1,39 +1,16 @@
-function ClassSystem(p) constructor{
-	parent = p;
+function ClassSystem() constructor{
 	list = [];
+	number = 0;
 	
-	static add = function(class){
-		if (array_get_index(list, class) != -1)  return;
+	static add = function(){
 		
-		array_push(list, parent.parse_calculations(class));
-		parent.render()
 	}
 	
-	static remove = function(class){
-		var index = array_get_index(list, class);
-		if (index == -1) return;
+	static remove = function(){
 		
-		array_delete(list, class, 1);		
-		parent.render()
 	}
 	
-	static toggle = function(class, state = (array_get_index(list, class) == -1)){
-		var cache = parent.parse_calculations(class);
-		var index = array_get_index(list, cache);
+	static toggle = function(){
 		
-		if (index == -1 and state){
-			array_push(list, cache);
-			
-			array_sort(list, function(a, b){
-				return a.weight - b.weight;
-			});
-			
-			parent.render();
-		}
-		
-		if (index != -1 and !state){
-			array_delete(list, index, 1);
-			parent.render();
-		}
 	}
 }
