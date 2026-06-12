@@ -11,6 +11,10 @@
   "defaultScriptType":1,
   "Folders":[
     {"$GMFolder":"","%Name":"Masha","folderPath":"folders/Masha.yy","name":"Masha","resourceType":"GMFolder","resourceVersion":"2.0",},
+<<<<<<< HEAD
+=======
+    {"$GMFolder":"","%Name":"Modules","folderPath":"folders/Masha/Modules.yy","name":"Modules","resourceType":"GMFolder","resourceVersion":"2.0",},
+>>>>>>> 9b41c21 (optimizations + refactoring)
     {"$GMFolder":"","%Name":"Systems","folderPath":"folders/Masha/Systems.yy","name":"Systems","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Util","folderPath":"folders/Masha/Util.yy","name":"Util","resourceType":"GMFolder","resourceVersion":"2.0",},
   ],
@@ -27,15 +31,27 @@
   "resources":[
     {"id":{"name":"oExample","path":"objects/oExample/oExample.yy",},},
     {"id":{"name":"rmExample","path":"rooms/rmExample/rmExample.yy",},},
+<<<<<<< HEAD
+=======
+    {"id":{"name":"BaseContainer","path":"scripts/BaseContainer/BaseContainer.yy",},},
+>>>>>>> 9b41c21 (optimizations + refactoring)
     {"id":{"name":"ClassSystem","path":"scripts/ClassSystem/ClassSystem.yy",},},
     {"id":{"name":"Container","path":"scripts/Container/Container.yy",},},
     {"id":{"name":"get_calculation","path":"scripts/get_calculation/get_calculation.yy",},},
     {"id":{"name":"get_default","path":"scripts/get_default/get_default.yy",},},
     {"id":{"name":"Layout","path":"scripts/Layout/Layout.yy",},},
+<<<<<<< HEAD
     {"id":{"name":"Pipeline","path":"scripts/Pipeline/Pipeline.yy",},},
     {"id":{"name":"Vertex","path":"scripts/Vertex/Vertex.yy",},},
     {"id":{"name":"sStoyanKolev","path":"sprites/sStoyanKolev/sStoyanKolev.yy",},},
     {"id":{"name":"sStoyanKolev2","path":"sprites/sStoyanKolev2/sStoyanKolev2.yy",},},
+=======
+    {"id":{"name":"parse_class","path":"scripts/parse_class/parse_class.yy",},},
+    {"id":{"name":"Pipeline","path":"scripts/Pipeline/Pipeline.yy",},},
+    {"id":{"name":"resolve_target","path":"scripts/resolve_target/resolve_target.yy",},},
+    {"id":{"name":"Vertex","path":"scripts/Vertex/Vertex.yy",},},
+    {"id":{"name":"sStoyanKolev","path":"sprites/sStoyanKolev/sStoyanKolev.yy",},},
+>>>>>>> 9b41c21 (optimizations + refactoring)
   ],
   "resourceType":"GMProject",
   "resourceVersion":"2.0",

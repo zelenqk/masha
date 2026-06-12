@@ -1,0 +1,18 @@
+{
+  "FolderOrderSettings":[
+    {"name":"Masha","order":5,"path":"folders/Masha.yy",},
+    {"name":"Modules","order":3,"path":"folders/Masha/Modules.yy",},
+    {"name":"Systems","order":2,"path":"folders/Masha/Systems.yy",},
+    {"name":"Util","order":1,"path":"folders/Masha/Util.yy",},
+  ],
+  "ResourceOrderSettings":[
+    {"name":"oExample","order":1,"path":"objects/oExample/oExample.yy",},
+    {"name":"ClassSystem","order":3,"path":"scripts/ClassSystem/ClassSystem.yy",},
+    {"name":"get_default","order":1,"path":"scripts/get_default/get_default.yy",},
+    {"name":"parse_class","order":1,"path":"scripts/parse_class/parse_class.yy",},
+    {"name":"Pipeline","order":1,"path":"scripts/Pipeline/Pipeline.yy",},
+    {"name":"resolve_target","order":2,"path":"scripts/resolve_target/resolve_target.yy",},
+    {"name":"Vertex","order":2,"path":"scripts/Vertex/Vertex.yy",},
+    {"name":"sStoyanKolev","order":3,"path":"sprites/sStoyanKolev/sStoyanKolev.yy",},
+  ],
+}

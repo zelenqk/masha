@@ -58,8 +58,14 @@ function resolve_variable_struct(struct, name, fallback){
 	
 	for(var i = array_length(self.class.list) - 1; i >= 0 ; i--){
 		var class = self.class.list[i];
+<<<<<<< HEAD
 		value = class[$ struct][$ name];
 		if (fallback != undefined) return value;
+=======
+		
+		value = class[$ struct][$ name];
+		if (value != undefined) return value;
+>>>>>>> 9b41c21 (optimizations + refactoring)
 	}
 	
 	return fallback;

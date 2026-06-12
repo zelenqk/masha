@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"BaseContainer",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"BaseContainer",
+  "parent":{
+    "name":"Modules",
+    "path":"folders/Masha/Modules.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

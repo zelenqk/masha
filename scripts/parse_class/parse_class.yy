@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"parse_class",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"parse_class",
+  "parent":{
+    "name":"Modules",
+    "path":"folders/Masha/Modules.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

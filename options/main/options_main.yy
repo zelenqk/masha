@@ -17,7 +17,11 @@
   "option_legacy_primitive_drawing":false,
   "option_mips_for_3d_textures":false,
   "option_remove_unused_assets":true,
+<<<<<<< HEAD
   "option_sci_usesci":false,
+=======
+  "option_sci_usesci":true,
+>>>>>>> 9b41c21 (optimizations + refactoring)
   "option_spine_licence":false,
   "option_steam_app_id":"0",
   "option_template_description":null,

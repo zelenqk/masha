@@ -12,6 +12,10 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
+<<<<<<< HEAD
+=======
+    {"$GMSpriteFrame":"v1","%Name":"3d51e5d7-6e3a-41de-b11b-ebeb8993f378","name":"3d51e5d7-6e3a-41de-b11b-ebeb8993f378","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+>>>>>>> 9b41c21 (optimizations + refactoring)
     {"$GMSpriteFrame":"v1","%Name":"1b57b72c-109e-4725-a4a3-404cb2fff2f6","name":"1b57b72c-109e-4725-a4a3-404cb2fff2f6","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
@@ -49,7 +53,11 @@
     },
     "eventStubScript":null,
     "eventToFunction":{},
+<<<<<<< HEAD
     "length":1.0,
+=======
+    "length":2.0,
+>>>>>>> 9b41c21 (optimizations + refactoring)
     "lockOrigin":false,
     "moments":{
       "$KeyframeStore<MomentsEventKeyframe>":"",
@@ -69,8 +77,16 @@
     "tracks":[
       {"$GMSpriteFramesTrack":"","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<SpriteFrameKeyframe>":"","Keyframes":[
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
+<<<<<<< HEAD
                 "0":{"$SpriteFrameKeyframe":"","Id":{"name":"1b57b72c-109e-4725-a4a3-404cb2fff2f6","path":"sprites/sStoyanKolev/sStoyanKolev.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
               },"Disabled":false,"id":"8e65b664-eb0e-4219-8069-a3afe068c315","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+=======
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"3d51e5d7-6e3a-41de-b11b-ebeb8993f378","path":"sprites/sStoyanKolev/sStoyanKolev.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"fd056f12-fd78-443f-bfa0-09b6f0c611dc","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"1b57b72c-109e-4725-a4a3-404cb2fff2f6","path":"sprites/sStoyanKolev/sStoyanKolev.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"8e65b664-eb0e-4219-8069-a3afe068c315","IsCreationKey":false,"Key":1.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+>>>>>>> 9b41c21 (optimizations + refactoring)
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange":null,

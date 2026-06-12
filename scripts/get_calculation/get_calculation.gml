@@ -36,6 +36,10 @@ function get_calculation(value){
 
 function calculate_value(calculation, target){
 	var value = calculation[0];
+<<<<<<< HEAD
+=======
+	
+>>>>>>> 9b41c21 (optimizations + refactoring)
 	switch (calculation[1]){
 	case UNIT.PERCENT:
 		return target * (value / 100);

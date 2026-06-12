@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"resolve_target",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"resolve_target",
+  "parent":{
+    "name":"Util",
+    "path":"folders/Masha/Util.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
